@@ -42,7 +42,10 @@ namespace HeadlessChromium.Puppeteer.Lambda.Dotnet
             {
                 if (!File.Exists(ChromiumPath))
                 {
-                    var compressedFile = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "chromium-*.br").FirstOrDefault();
+                    var compressedFile = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "chromium*.br").FirstOrDefault();
+
+                    if (compressedFile == null)
+                        throw new FileNotFoundException($"chromium.br not found in {AppDomain.CurrentDomain.BaseDirectory}");
 
                     logger.LogDebug($"Found compressed file {compressedFile}");
 
